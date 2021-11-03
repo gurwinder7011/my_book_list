@@ -11,7 +11,8 @@ router.get('/', (req, res, next) => {
   // find all books in the books collection
   Book.find( (err, books) => {
     if (err) {
-      return console.error(err);
+      console.error(err);
+      res.end(err);
     }
     else {
       res.render('books/index', {
@@ -60,19 +61,39 @@ router.post('/add', (req, res, next) => {
 });
 
 // GET the Book Details page in order to edit an existing Book
-router.get('/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+router.get('/edit/:id', (req, res, next) => {
+  const id = req.params.id;
+  Book.findOne({ _id: id }, (err, bookToEdit) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.render('books/details', {
+        title: "Edit books",
+        books: bookToEdit
+      })
+    }
+  })
 });
 
 // POST - process the information passed from the details form and update the document
-router.post('/:id', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+router.post('/edit/:id', (req, res, next) => {
+  const id = req.params.id;
+  const updatedBook = {
+    Title: req.body.title,
+    Description: req.body.description,
+    Price: req.body.price,
+    Genre: req.body.genre,
+    Author: req.body.author,
+  };
+  Book.updateOne({ _id : id}, updatedBook, (err) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    } else {
+      res.redirect('/books');
+    }
+  })
 
 });
 
