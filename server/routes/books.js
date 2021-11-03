@@ -4,12 +4,12 @@ let router = express.Router();
 let mongoose = require('mongoose');
 
 // define the book model
-let book = require('../models/books');
+const Book = require('../models/books');
 
 /* GET books List page. READ */
 router.get('/', (req, res, next) => {
   // find all books in the books collection
-  book.find( (err, books) => {
+  Book.find( (err, books) => {
     if (err) {
       return console.error(err);
     }
@@ -25,19 +25,37 @@ router.get('/', (req, res, next) => {
 
 //  GET the Book Details page in order to add a new Book
 router.get('/add', (req, res, next) => {
-
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  const books = new Book();
+  res.render('books/details', {
+    title: 'Add Books',
+    books: books
+  })
 
 });
 
 // POST process the Book Details page and create a new Book - CREATE
 router.post('/add', (req, res, next) => {
+  let newBook = Book({
+    _id: req.body.id,
+    Title: req.body.title,
+    Price: req.body.price,
+    Description: req.body.description,
+    Author: req.body.author,
+    Genre: req.body.genre
+  });
 
-    /*****************
-     * ADD CODE HERE *
-     *****************/
+  //creates new entry
+  Book.create(newBook, (err, book) => {
+    if (err) {
+      console.log(err);
+      res.end(err);
+    }
+    else {
+      console.log(book);
+      res.redirect('/books');
+    }
+  });
+
 
 });
 
