@@ -1,3 +1,9 @@
+/**
+ * Author Name: Gurwinder Singh
+ * Student number: 301176745
+ * App Name: The favourite Booklist app
+ * File Name: books.js
+ */
 let mongoose = require('mongoose');
 
 // create a model class

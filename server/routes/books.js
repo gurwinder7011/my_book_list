@@ -1,3 +1,10 @@
+/**
+ * Author Name: Gurwinder Singh
+ * Student number: 301176745
+ * App Name: The favourite Booklist app
+ * File Name: books.js
+ */
+
 // modules required for routing
 let express = require('express');
 let router = express.Router();

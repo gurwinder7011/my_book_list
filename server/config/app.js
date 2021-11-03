@@ -1,3 +1,10 @@
+/**
+ * Author Name: Gurwinder Singh
+ * Student number: 301176745
+ * App Name: The favourite Booklist app
+ * File Name: app.js
+ */
+
 // moddules for node and express
 let createError = require('http-errors');
 let express = require('express');
